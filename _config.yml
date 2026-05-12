@@ -11,24 +11,74 @@
 # If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
+
+
+# Site settings ================================================================
 # These are used to personalize your new site. If you look in the HTML files,
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
 title: Connor de la Cruz's Blog
-email: connor.c.delacruz@gmail.com
+author:
+  name: Connor de la Cruz
+  email: connor.c.delacruz@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Remember blogs? Me neither.
-# TODO: update!
+  A cool and fun rest stop on the Information SuperHighway.
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://connordelacruz.com" # the base hostname & protocol for your site, e.g. http://example.com
-# twitter_username: jekyllrb
-github_username: connordelacruz
 
-# Defaults
+# Theme ========================================================================
+theme: minima
+# Minima v3+ settings ----------------------------------------------------------
+minima:
+  # Minima skin selection. Available skins are:
+  #   * classic            Default, light color scheme.
+  #   * dark               Dark variant of the classic skin.
+  #   * auto               Adaptive skin based on the classic and dark skins.
+  #   * solarized-light    Light variant of solarized color scheme.
+  #   * solarized-dark     Dark variant of solarized color scheme.
+  #   * solarized          Adaptive skin for solarized color scheme skins.
+  skin: dark
+  # Specific pages for site navigation.
+  #   If you wish to link only specific pages in the site-navigation, use this
+  #   and list the `path` property (as represented via Liquid) of the pages in
+  #   the order they should be rendered.
+  # nav_pages:
+  #   - about.md
+  #
+  # Set to `true` to show excerpts on the homepage.
+  show_excerpts: true
+  #
+  # Minima date format.
+  #   The default value is "%b %d, %Y" (e.g. Nov 14, 2023).
+  #   Refer to https://shopify.github.io/liquid/filters/date/ for valid values
+  # date_format: "%b-%d-%Y"
+  #
+  # Social Media Links.
+  #   Renders icons via Font Awesome Free webfonts CDN, based on ordered list of
+  #   entries. Valid entry keys:
+  #     * title    Tooltip rendered on hovering over icon.
+  #     * icon     Font Awesome icon id. `github` corresponds to `fa-github`.
+  #     * url      Full URL of social profile.
+  social_links:
+    - title: GitHub
+      icon: github
+      url: "https://github.com/connordelacruz"
+    - title: LinkedIn
+      icon: linkedin
+      url: "https://www.linkedin.com/in/connordelacruz"
+    - title: Instagram
+      icon: instagram
+      url: "https://www.instagram.com/delachrome"
+  # Hide syndication feed subscription link.
+  #   RSS / Atom feed link is always rendered as the last item of social-links
+  #   list. Set below key to `true` to not have the link to feed rendered as
+  #   part of social-links list.
+  hide_site_feed_link: true
+
+# Defaults =====================================================================
+
 defaults:
   - scope:
       path: ""
@@ -40,12 +90,21 @@ defaults:
     values:
       layout: page
 
-# Build settings
-theme: minima
-plugins:
-  - jekyll-feed
+# Build settings ===============================================================
 
-# Exclude from processing.
+# Plugins ----------------------------------------------------------------------
+plugins:
+  # Minima (allegedly) requires these plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+# Sass -------------------------------------------------------------------------
+sass:
+  # Disable deprecation warnings from newer versions of sass converter.
+  # (Probably just wanna write more compliant sass if/when I make my own theme).
+  quiet_deps: true
+  silence_deprecations: [import]
+
+# Exclude from processing. -----------------------------------------------------
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
 # the internal "default list".
