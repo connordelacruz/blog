@@ -33,9 +33,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        # Enable files stored in git lfs
-        # https://github.com/orgs/community/discussions/50337#discussioncomment-5349819
         with:
+          # Download Git-LFS files
+          # https://github.com/orgs/community/discussions/50337#discussioncomment-5349819
           lfs: true
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
