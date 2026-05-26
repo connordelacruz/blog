@@ -7,7 +7,6 @@ class ScriptBase(ABC):
     def __init__(self, parsed_args=None):
         self.parsed_args = parsed_args
 
-
     @property
     @abstractmethod
     def command(self):
@@ -20,13 +19,11 @@ class ScriptBase(ABC):
         '''Subcommand description'''
         pass
 
-
     @classmethod
     @abstractmethod
     def get_parser(cls):
         '''Return the ArgumentParser object for this command.'''
         pass
-
 
     @classmethod
     def add_subparser(cls, subparsers):
