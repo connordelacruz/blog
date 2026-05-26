@@ -3,7 +3,8 @@ import argparse
 from datetime import datetime
 import os
 # Abstract script class
-from base import ScriptBase
+# TODO: this import syntax fails if we run this script directly, so I guess just delete main and always use exec_script.py
+from .base import ScriptBase
 
 # ================================================================================
 # Constants
@@ -100,11 +101,14 @@ class NewPostScript(ScriptBase):
     '''Create a new post and open it in editor.'''
 
     command = 'new-post'
+    description = 'Create a new post and open it in editor'
 
     @classmethod
     def get_parser(cls):
         # TODO: usage description and all that
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(
+            description=cls.description,
+        )
 
         # Positional
         parser.add_argument(
