@@ -3,8 +3,6 @@ title: "Jekyll Journey: Using Git LFS for Images"
 tags: jekyll git
 ---
 
-# The Plan
-
 I wanted to figure out some way to store images for this blog without bloating the repository size. After doing some research, I discovered [Git LFS](https://git-lfs.com/). This is a Git extension that allows you to store large files in a separate location from the git repo, which is exactly what I was looking for.
 
 **Tl;dr - I got it working!** Here's a picture of my dog Kiwi to prove it:
