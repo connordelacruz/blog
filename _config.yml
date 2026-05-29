@@ -97,6 +97,8 @@ plugins:
   # Minima (allegedly) requires these plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  # target="_blank" rel="noopener noreferrer" on external links
+  - jekyll-target-blank
 # Sass -------------------------------------------------------------------------
 sass:
   # Disable deprecation warnings from newer versions of sass converter.

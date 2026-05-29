@@ -23,6 +23,8 @@ gem "minima", github: "jekyll/minima", ref: "4de3223"
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem "jekyll-seo-tag", "~> 2.9"
+  # Add target="_blank" and rel="noopener noreferrer" to external links
+  gem "jekyll-target-blank", "~> 2.0.2"
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
