@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
 import argparse
 from datetime import datetime
 import os
 # Abstract script class
-# TODO: this import syntax fails if we run this script directly, so I guess just delete main and always use exec_script.py
 from .base import ScriptBase
 
 # ================================================================================
@@ -98,8 +96,6 @@ def open_file_in_editor(filepath):
 # ================================================================================
 
 class NewPostScript(ScriptBase):
-    '''Create a new post and open it in editor.'''
-
     command = 'new-post'
     description = 'Create a new post and open it in editor'
 
@@ -146,17 +142,3 @@ class NewPostScript(ScriptBase):
         print('Opening file in editor...')
         open_file_in_editor(filepath)
 
-# ================================================================================
-# Main
-# ================================================================================
-
-def main():
-    '''Parse args and run script.'''
-    parser = NewPostScript.get_parser()
-    parsed_args = parser.parse_args()
-    script = NewPostScript(parsed_args)
-    script.run()
-
-
-if __name__ == '__main__':
-    main()

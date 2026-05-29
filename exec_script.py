@@ -4,10 +4,12 @@ import sys
 import traceback
 # Script classes
 from scripts.new_post import NewPostScript
+from scripts.copy_image_for_post import CopyImageForPostScript
 
 # Maps command names to script classes
 commands = {
     NewPostScript.command: NewPostScript,
+    CopyImageForPostScript.command: CopyImageForPostScript,
 }
 
 def get_parser():
