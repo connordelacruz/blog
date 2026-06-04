@@ -23,7 +23,12 @@ IMAGES_DIR = 'assets/images'
 # ================================================================================
 
 def convert_date_arg_to_datetime(date_arg):
-    # TODO: DOC
+    '''Convert date arg string to a datetime object.
+
+    :param date_arg: String matching DATE_STRING_FMT format.
+
+    :return: datetime object or None if an error occurred while parsing.
+    '''
     try:
         parsed_date = datetime.strptime(date_arg, DATE_STRING_FMT)
     except ValueError:
@@ -32,37 +37,55 @@ def convert_date_arg_to_datetime(date_arg):
 
 
 def get_target_dir_path(parsed_date):
-    # TODO: DOC. emphasize that this does not include the filename, just dirs
+    '''Returns a string for the target path to copy the image to.
+
+    Format is 'assets/images/<year>/<month>/<day>/'
+
+    :param parsed_date: datetime object for post date.
+
+    :return: Path to target directory.
+    '''
     date_dir_path = parsed_date.strftime(DATE_PATH_STRING_FMT)
     target_dir_path = os.path.join(IMAGES_DIR, date_dir_path)
     return target_dir_path
 
 
 def create_dirs(target_dir_path):
-    # TODO: DOC
-    # TODO: make sure relative paths are handled ok
+    '''Creates all dirs in the provided path if they do not exist.
+
+    :param target_dir_path: Path to target directory.
+    '''
     os.makedirs(target_dir_path, exist_ok=True)
 
 
 def get_target_image_path(target_dir_path, image_to_copy_path):
-    # TODO: DOC
+    '''Returns a string for the target path with filename.
+
+    Uses original image's filename for the target file, e.g.:
+
+    'assets/images/<year>/<month>/<day>/<original-image-filename.ext>'
+
+    :param target_dir_path: Path to target directory.
+    :param image_to_copy_path: Path to source image file.
+
+    :return: Target filepath.
+    '''
     filename = os.path.basename(image_to_copy_path)
     return os.path.join(target_dir_path, filename)
 
 
 def copy_image_to_target_path(image_to_copy_path, target_image_path):
-    # TODO: DOC
+    '''Copy file to the target path.
+
+    :param image_to_copy_path: Path to source image.
+    :param target_image_path: Path to target (with filename).
+    '''
     shutil.copy(image_to_copy_path, target_image_path)
 
 
 # ================================================================================
 # Script Command Class
 # ================================================================================
-
-# TODO: This script should take a path to an image (and optionally a date, default to today) (with validation and all that)
-# TODO: Create dirs based on date (if necessary) i.e. ./assets/images/<year>/<month>/<day>/
-# TODO: Copy the target images to the new dir
-# TODO: Print new image path as it would be linked in a post md file (i.e. include baseurl prefix)
 
 class CopyImageForPostScript(ScriptBase):
     command = 'copy-image'
@@ -93,7 +116,14 @@ class CopyImageForPostScript(ScriptBase):
         return parser
 
     def run(self):
-        # TODO: DOC
+        '''Execute the script.
+
+        - Validates optional date arg
+        - Formats target dir path
+        - Creates directories as necessary
+        - Copies the image to the target path
+        - Prints the path to the copied image to sdout
+        '''
         # TODO: validate image to copy path
         # Validate and parse date arg
         parsed_date = convert_date_arg_to_datetime(self.parsed_args.date)
