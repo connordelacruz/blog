@@ -127,3 +127,4 @@ exclude:
   - vendor/ruby/
   - "*.py"
   - "*.pyc"
+  - "*.txt"
