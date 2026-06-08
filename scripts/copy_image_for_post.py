@@ -58,20 +58,49 @@ def create_dirs(target_dir_path):
     os.makedirs(target_dir_path, exist_ok=True)
 
 
-def get_target_image_path(target_dir_path, image_to_copy_path):
+def validate_target_filename_extension(source_filename, target_filename):
+    '''Ensures that target filename extension matches source.
+
+    If there's a mismatch or no extension, will remove target filename's bad
+    extension and append source filename's extension.
+
+    :param source_filename: Source image filename.
+    :param target_filename: Target image filename.
+
+    :return: Target image filename with correct extension.
+    '''
+    source_tup = os.path.splitext(source_filename)
+    target_tup = os.path.splitext(target_filename)
+    if source_tup[1] != target_tup[1]:
+        # Append source's file ext
+        target_filename = target_tup[0] + source_tup[1]
+    return target_filename
+
+
+def get_target_image_path(target_dir_path, image_to_copy_path, target_filename=None):
     '''Returns a string for the target path with filename.
 
-    Uses original image's filename for the target file, e.g.:
+    If target_filename is None, uses original image's filename for the target
+    file, e.g.:
 
-    'assets/images/<year>/<month>/<day>/<original-image-filename.ext>'
+        'assets/images/<year>/<month>/<day>/<original-image-filename.ext>'
+
+    If target_filename is not None, will ensure that the original filename's
+    extension is appended to target filename.
 
     :param target_dir_path: Path to target directory.
     :param image_to_copy_path: Path to source image file.
+    :param target_filename: (Optional) Name for the copied image file, with or
+        without extension.
 
     :return: Target filepath.
     '''
-    filename = os.path.basename(image_to_copy_path)
-    return os.path.join(target_dir_path, filename)
+    source_filename = os.path.basename(image_to_copy_path)
+    if target_filename is not None:
+        target_filename = validate_target_filename_extension(source_filename, target_filename)
+    else:
+        target_filename = source_filename
+    return os.path.join(target_dir_path, target_filename)
 
 
 def copy_image_to_target_path(image_to_copy_path, target_image_path):
@@ -107,6 +136,11 @@ class CopyImageForPostScript(ScriptBase):
 
         # Optional
         parser.add_argument(
+            '-f', '--filename',
+            metavar='<copied image filename>',
+            help='If specified, the new image file will use this as its filename. Default behavior is to keep the filename of the original'
+        )
+        parser.add_argument(
             '-d', '--date',
             metavar='<YYYY-MM-DD>',
             help='Use a custom date for path. Defaults to current date',
@@ -135,7 +169,7 @@ class CopyImageForPostScript(ScriptBase):
         # Create any non-existant dirs in the target path
         create_dirs(target_dir_path)
         # Full path to image destination w/ filename
-        target_image_path = get_target_image_path(target_dir_path, self.parsed_args.image_to_copy_path)
+        target_image_path = get_target_image_path(target_dir_path, self.parsed_args.image_to_copy_path, self.parsed_args.filename)
         # Copy the file
         copy_image_to_target_path(self.parsed_args.image_to_copy_path, target_image_path)
 
