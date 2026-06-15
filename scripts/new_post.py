@@ -90,6 +90,8 @@ def generate_front_matter_string(title=None):
     ]
     # Optionally insert custom formatted title
     if title is not None:
+        # Escape any double quotes
+        title = re.sub(r'"', r'\"', title)
         lines.append(f'title: "{title}"')
     lines.append('---')
     lines_string = '\n'.join(lines)

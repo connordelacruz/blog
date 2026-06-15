@@ -174,5 +174,6 @@ class CopyImageForPostScript(ScriptBase):
         copy_image_to_target_path(self.parsed_args.image_to_copy_path, target_image_path)
 
         print('Image copied to:')
-        print(f'"{target_image_path}"')
+        # TODO: can we pull the "/blog/" part from _config.yml?
+        print(f'"/blog/{target_image_path}"')
 
