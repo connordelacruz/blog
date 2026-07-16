@@ -1,0 +1,32 @@
+// Custom Variables ============================================================
+$color-blue:   #668AFF;
+$color-pink:   #FE5C9C;
+$color-yellow: #FFB217;
+
+// Variable Overrides ==========================================================
+
+$brand-color: $color-blue;
+$brand-color-light: lighten($brand-color, 5%);
+$brand-color-dimmed: darken($brand-color, 8%);
+$brand-color-dark: darken($brand-color, 43%);
+
+$site-title-color: $brand-color-light;
+
+$heading-color: rgba(lighten($brand-color, 25%), 1.0);
+$text-color: rgba(lighten($brand-color, 25%), 0.75);
+$background-color: #131a33;
+$code-background-color: lighten($background-color, 8.5%);
+
+$link-base-color: $color-pink;
+$link-visited-color: $link-base-color;
+$link-hover-color: lighten($link-base-color, 5%);
+
+$border-color-01: lighten($background-color, 12%);
+$border-color-02: $border-color-01;
+$border-color-03: $border-color-01;
+
+// $table-text-color: $dm-table-text-color;
+// $table-zebra-color: $dm-table-zebra-color;
+// $table-header-bg-color: $dm-table-header-bg-color;
+// $table-header-border: $dm-table-header-border;
+// $table-border-color: $dm-table-border-color;
