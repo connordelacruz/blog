@@ -1,0 +1,3 @@
+# Used for optimizing image files in
+# scripts/copy_image_for_post.py
+optimize-images >= 2.0.0, < 2.1
