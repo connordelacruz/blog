@@ -2,6 +2,8 @@ import argparse
 from datetime import datetime
 import os
 import shutil
+# External Libraries
+from optimize_images.api import optimize_single_image
 # Abstract script class
 from .base import ScriptBase
 
@@ -112,6 +114,28 @@ def copy_image_to_target_path(image_to_copy_path, target_image_path):
     shutil.copy(image_to_copy_path, target_image_path)
 
 
+def optimize_image(target_image_path):
+    '''Run image file through optimize-images library.
+
+    :param target_image_path: Path of the image to optimize (must exist)
+
+    :return: Result object returned by optimize_single_image().
+    '''
+    # TODO: arguments?
+    # https://github.com/victordomingos/optimize-images/blob/master/docs/docs_EN.md#optimize-a-single-image
+    return optimize_single_image(target_image_path)
+
+
+def print_optimize_image_results(target_image_path, result):
+    if result.was_optimized:
+        msg = f'[OPTIMIZED] {result.orig_size} -> {result.final_size}'
+    else:
+        msg = '[NO CHANGE]'
+    print(msg)
+
+
+
+
 # ================================================================================
 # Script Command Class
 # ================================================================================
@@ -146,6 +170,12 @@ class CopyImageForPostScript(ScriptBase):
             help='Use a custom date for path. Defaults to current date',
             default=datetime.now().strftime(DATE_STRING_FMT)
         )
+        parser.add_argument(
+            '-O', '--no-optimization',
+            dest='optimize_image',
+            action='store_false',
+            help='Images will be optimized for web by default. Using this argument will skip optimization'
+        )
 
         return parser
 
@@ -173,7 +203,16 @@ class CopyImageForPostScript(ScriptBase):
         # Copy the file
         copy_image_to_target_path(self.parsed_args.image_to_copy_path, target_image_path)
 
-        print('Image copied to:')
+        # File optimization
+        if self.parsed_args.optimize_image:
+            print('Optimizing image file...')
+            r = optimize_image(target_image_path)
+            print_optimize_image_results(target_image_path, r)
+        else:
+            print('Skipping file optimization.')
+
+        print('')
+        print('Image copied!:')
         # TODO: can we pull the "/blog/" part from _config.yml?
         print(f'"/blog/{target_image_path}"')
 
