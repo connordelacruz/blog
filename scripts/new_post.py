@@ -93,10 +93,12 @@ def generate_front_matter_string(title=None):
         # Escape any double quotes
         title = re.sub(r'"', r'\"', title)
         lines.append(f'title: "{title}"')
+    # Add tags variable
+    lines.append('tags: ')
     lines.append('---')
     lines_string = '\n'.join(lines)
     # Append a couple blank lines
-    lines_string += '\n\n'
+    lines_string += '\n\n\n'
     return lines_string
 
 
