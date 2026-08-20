@@ -27,6 +27,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   A cool and fun rest stop on the Information SuperHighway.
 baseurl: "/blog" # the subpath of your site, e.g. /blog
 url: "https://connordelacruz.com" # the base hostname & protocol for your site, e.g. http://example.com
+google_analytics: G-V5NHG1Z82T
 
 # Theme ========================================================================
 theme: minima
